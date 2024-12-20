@@ -1,0 +1,46 @@
+package com.order.service.impl;
+
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
+
+import com.order.dto.OrderItemDto;
+import com.order.dto.OrderRequest;
+import com.order.dto.OrderResponse;
+import com.order.entity.Order;
+import com.order.service.OrderService;
+
+import lombok.AllArgsConstructor;
+@Service
+@AllArgsConstructor
+public class OrderServiceImpl implements OrderService {
+	
+	
+	private WebClient webClient;
+
+	@Override
+	public String placeOrder(OrderRequest orderRequest) {
+		Order order=new Order();
+		order.setCustomerId(orderRequest.getCustomerId());
+		order.setOrderDate(new Date());
+		order.setStatus("Placed");
+		
+		List<OrderItemDto> items=orderRequest.getItems();
+		for(OrderItemDto item:items) {
+			item.getProductId()
+		}
+
+//		orderRequest.getItems().forEach(order-> order.getProductId());
+		return null;
+	}
+
+	@Override
+	public List<OrderResponse> getAllOrders() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
