@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.order.dto.OrderItemDto;
 import com.order.dto.OrderRequest;
+import com.order.dto.OrderResponse;
 import com.order.service.impl.OrderServiceImpl;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -23,7 +25,7 @@ public class OrderController {
 	
 	
 	@PostMapping("/")
-	public String placeOrder(@RequestBody OrderRequest order) {
+	public OrderResponse placeOrder(@Valid @RequestBody OrderRequest order) {
 		return orderService.placeOrder(order);
 	}
 	

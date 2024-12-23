@@ -1,6 +1,7 @@
 package com.order.entity;
 
-import java.util.Date;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -27,7 +28,7 @@ public class Order {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long orderId;
 	
-	private Date orderDate;
+	private LocalDateTime orderDate;
 	
 	private double totalAmount;
 	

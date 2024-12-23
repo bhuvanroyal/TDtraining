@@ -2,6 +2,7 @@ package com.order.dto;
 
 import java.util.List;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,8 +15,9 @@ import lombok.ToString;
 @Setter
 public class OrderRequest {
 	
+	@NotNull (message="customerId cannot be null")
 	private Long customerId;
-	
+	@NotNull (message="orderItms cannot be null")
 	private List<OrderItemDto> items;
 
 }

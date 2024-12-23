@@ -1,14 +1,12 @@
 package com.order.service.impl;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.order.dto.OrderItemDto;
 import com.order.dto.OrderRequest;
 import com.order.dto.OrderResponse;
 import com.order.dto.ProductDto;
@@ -22,36 +20,45 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class OrderServiceImpl implements OrderService {
 	
+	private ModelMapper modelMapper;
 	
 	private WebClient webClient;
 	
 	private OrderRepository orderRepository;
 
 	@Override
-	public String placeOrder(OrderRequest orderRequest) {
+	public OrderResponse placeOrder(OrderRequest orderRequest) {
 		Order order=new Order();
 		order.setCustomerId(orderRequest.getCustomerId());
-		order.setOrderDate(new Date());
+		order.setOrderDate(LocalDateTime.now());
 		order.setStatus("Placed");
-		List<OrderItemDto> items=orderRequest.getItems();
-		List<OrderItem> orderItems=new ArrayList<>();
-		order.setOrderItems(orderItems);
-		for(OrderItemDto item:items) {
-			ProductDto product=webClient.get().uri("http://localhost:8082/api/product/" +item.getProductId())
-			.retrieve().bodyToMono(ProductDto.class).block();
-			item.getProductId();
-			System.out.println(product);
-			OrderItem orderItem=new OrderItem();
-			orderItem.setProductId(item.getProductId());
-			orderItem.setPrice(product.getPrice());
-			orderItem.setQuantity(item.getQuantity());
-			orderItem.setTotal(product.getPrice()*item.getQuantity());
-			order.getOrderItems().add(orderItem);
-		}
 		
+		List<OrderItem> orderItems=orderRequest.getItems().stream().map(item -> {
+			ProductDto product=fetchProductDetails(item.getProductId());
+			return createOrderItem(product,item.getQuantity());
+			
+		}).toList();
+		
+		double totalAmount=orderItems.stream().mapToDouble(OrderItem::getTotal).sum();
+		order.setTotalAmount(totalAmount);
+		order.setOrderItems(orderItems);
 		orderRepository.save(order);
+		
+		return modelMapper.map(order, OrderResponse.class);
+	}
 
-		return "Success";
+	private OrderItem createOrderItem(ProductDto product, Integer quantity) {
+		OrderItem orderItem=new OrderItem();
+		orderItem.setProductId(product.getProductId());
+		orderItem.setPrice(product.getPrice());
+		orderItem.setQuantity(quantity);
+		orderItem.setTotal(product.getPrice()*quantity);
+		return orderItem;
+	}
+
+	private ProductDto fetchProductDetails(Long productId) {
+		return webClient.get().uri("http://localhost:8082/api/product/" +productId)
+				.retrieve().bodyToMono(ProductDto.class).block();
 	}
 
 	@Override
