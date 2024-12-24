@@ -1,9 +1,0 @@
-
-g	java:S125"<This block of commented-out lines of code should be removed.(¥˜Û¯H¸RMAJORZ
-CODE_SMELL
-g
-java:S1128";Remove this unused import 'jakarta.persistence.JoinColumn'.(İçÆ•H¹RMINORZ
-CODE_SMELL
-k
-java:S1128":Remove this unused import 'jakarta.persistence.ManyToOne'.(áîÖãùÿÿÿÿH»RMINORZ
-CODE_SMELL

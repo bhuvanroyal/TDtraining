@@ -1,6 +1,8 @@
 package com.order.service.impl;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -39,6 +41,8 @@ public class OrderServiceImpl implements OrderService {
 			
 		}).toList();
 		
+		
+		
 		double totalAmount=orderItems.stream().mapToDouble(OrderItem::getTotal).sum();
 		order.setTotalAmount(totalAmount);
 		order.setOrderItems(orderItems);
@@ -63,8 +67,25 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public List<OrderResponse> getAllOrders() {
-		// TODO Auto-generated method stub
-		return null;
+		return orderRepository.findAll().stream().map(ord->modelMapper.map(ord, OrderResponse.class)).toList();
+	}
+
+	@Override
+	public List<OrderResponse> getOrdersByCustomerId(Long customerId) {
+		return orderRepository.findByCustomerId(customerId).stream().map(ord->modelMapper.map(ord,OrderResponse.class)).toList();
+	}
+
+	@Override
+	public List<OrderResponse> getOrdersBetweenDates(LocalDate startDate, LocalDate endDate) {
+		return orderRepository.findByOrderDateBetween(startDate.atStartOfDay(), endDate.atTime(LocalTime.MAX))
+				.stream().map(ord->modelMapper.map(ord,OrderResponse.class)).toList();
+	}
+
+	@Override
+	public List<OrderResponse> getOrdersByCustomerIdAndDateRange(Long customerId, LocalDate startDate,
+			LocalDate endDate) {
+		return orderRepository.findByCustomerIdAndOrderDateBetween(customerId,startDate.atStartOfDay(),
+				endDate.atTime(LocalTime.MAX)).stream().map(ord->modelMapper.map(ord,OrderResponse.class)).toList();
 	}
 
 }

@@ -25,3 +25,7 @@ m
 =src/main/java/com/order/exception/GlobalExceptionHandler.java,d\4\d477176ce2483241e965f79079d03802f1ac2c6f
 7
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
+k
+;src/main/java/com/order/repository/OrderItemRepository.java,5\d\5d8857dfc4c29c0eb9229872ba417436a65454e6
+g
+7src/main/java/com/order/repository/OrderRepository.java,1\9\1938edd72c0cd78e901434b567527502caa0cd45

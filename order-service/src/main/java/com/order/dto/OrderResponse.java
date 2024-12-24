@@ -27,7 +27,7 @@ public class OrderResponse {
 	
 	private String status;
 	
-//	private Long customerId;
+	private Long customerId;
 	
 	private List<OrderItem> orderItems;
 }
