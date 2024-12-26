@@ -29,3 +29,5 @@ k
 ;src/main/java/com/order/repository/OrderItemRepository.java,5\d\5d8857dfc4c29c0eb9229872ba417436a65454e6
 g
 7src/main/java/com/order/repository/OrderRepository.java,1\9\1938edd72c0cd78e901434b567527502caa0cd45
+Y
+)src/main/resources/application.properties,0\6\06f65155ec73600b9fc5c4dc2883d4bb84d8e284
