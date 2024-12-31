@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.customer.dto.CustomerRequest;
 import com.customer.dto.CustomerResponse;
 import com.customer.entity.Customer;
+import com.customer.exception.CustomerNotFoundException;
 import com.customer.repository.CustomerRepository;
 import com.customer.service.CustomerService;
 
@@ -28,9 +29,15 @@ public class CustomerServiceImpl implements CustomerService{
 	}
 
 	@Override
-	public CustomerResponse updateCustomer(Long customerId, CustomerRequest customerRequest) {
-		// TODO Auto-generated method stub
-		return null;
+	public CustomerResponse updateCustomer(Long customerId, CustomerRequest customerRequest){
+		Customer customer=customerRepository.findById(customerId).orElseThrow(() -> new CustomerNotFoundException("Customer Id witn " +customerId +" does not exist"));
+		customer.setFirstName(customerRequest.getFirstName());
+		customer.setLastName(customerRequest.getLastName());
+		customer.setPhoneNumber(customerRequest.getPhoneNumber());
+		customer.setEmail(customerRequest.getEmail());
+		customerRepository.save(customer);
+		return modelMapper.map(customer, CustomerResponse.class);
+		
 	}
 
 	@Override
@@ -41,14 +48,13 @@ public class CustomerServiceImpl implements CustomerService{
 
 	@Override
 	public List<CustomerResponse> getAllCustomers() {
-		// TODO Auto-generated method stub
-		return null;
+		return customerRepository.findAll().stream().map(customer->modelMapper.map(customer,CustomerResponse.class)).toList();
 	}
 
 	@Override
 	public void deleteCustomer(Long customerId) {
-		// TODO Auto-generated method stub
-		
+		Customer customer=customerRepository.findById(customerId).orElseThrow(() -> new CustomerNotFoundException("Customer Id witn " +customerId +" does not exist"));
+		customerRepository.delete(customer);
 	}
 
 }
