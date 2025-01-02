@@ -14,11 +14,11 @@ import lombok.ToString;
 public class AddressResponse {
 	
 	private Long addressId;
-	
-	private String location;
-	
-	private Long pindcode;
-	
-	private String landmark;
+	private Long customerId;
+	private String addressLine;
+	private String city;
+	private String state;
+	private String postalCode;
+	private String phoneNumber;
 
 }

@@ -2,8 +2,8 @@ package com.customer.service;
 
 import java.util.List;
 
-import com.customer.dto.AddressRequest;
 import com.customer.dto.AddressResponse;
+import com.customer.dto.CustomerAddressResponse;
 import com.customer.dto.CustomerRequest;
 import com.customer.dto.CustomerResponse;
 
@@ -19,7 +19,7 @@ public interface CustomerService {
 
 	public void deleteCustomer(Long customerId);
 	
-//	public List<AddressResponse> getAddressesByCustomer(Long customerId);
+	public CustomerAddressResponse getAddressAndCustomerByCustomer(Long customerId);
 //	
 //	public AddressResponse addAddressForCustomer(Long customerId, AddressRequest addressRequest);
 

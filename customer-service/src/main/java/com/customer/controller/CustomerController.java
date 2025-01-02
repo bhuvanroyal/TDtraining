@@ -12,10 +12,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.customer.dto.CustomerAddressResponse;
 import com.customer.dto.CustomerRequest;
 import com.customer.dto.CustomerResponse;
 import com.customer.service.CustomerService;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -28,7 +31,7 @@ public class CustomerController {
 	
 	
 	@PostMapping("/")
-	public ResponseEntity<CustomerResponse> createCustomer(@RequestBody CustomerRequest customerRequest) {
+	public ResponseEntity<CustomerResponse> createCustomer(@Valid @RequestBody CustomerRequest customerRequest) {
 		return new ResponseEntity<>(customerService.createCustomer(customerRequest),HttpStatus.CREATED);
 	}
 	
@@ -42,7 +45,7 @@ public class CustomerController {
 		return new ResponseEntity<>(customerService.getCustomerById(customerId),HttpStatus.OK);
 	}
 	@PutMapping("/{customerId}")
-	public ResponseEntity<CustomerResponse> updateCustomerDetails(@RequestBody CustomerRequest customerRequest,@PathVariable Long customerId){
+	public ResponseEntity<CustomerResponse> updateCustomerDetails(@Valid @RequestBody CustomerRequest customerRequest,@PathVariable Long customerId){
 		return new ResponseEntity<>(customerService.updateCustomer(customerId,customerRequest),HttpStatus.OK);
 	}
 	
@@ -50,5 +53,10 @@ public class CustomerController {
 	public ResponseEntity<Void> deleteCustomer(@PathVariable Long customerId){
 		customerService.deleteCustomer(customerId);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping("/address/{customerId}")
+	public ResponseEntity<CustomerAddressResponse> getAddressAndCustomerByCustomer(@PathVariable Long customerId){
+		return new ResponseEntity<>(customerService.getAddressAndCustomerByCustomer(customerId),HttpStatus.OK);
 	}
 }

@@ -10,6 +10,8 @@ import com.address.dto.AddressRequest;
 import com.address.dto.AddressResponse;
 import com.address.entity.Address;
 import com.address.exception.AddressNotFoundException;
+import com.address.exception.CustomerNotFoundException;
+import com.address.feign.CustomerClient;
 import com.address.repository.AddressRepository;
 import com.address.service.AddressService;
 import lombok.AllArgsConstructor;
@@ -21,6 +23,8 @@ public class AddressServiceImpl implements AddressService {
 	private AddressRepository addressRepository;
 	
 	private ModelMapper modelMapper;
+	
+	private CustomerClient customerClient;
 	
 	@Override
 	public AddressResponse createAddress(Long customerId, AddressRequest addressRequest) {
@@ -52,8 +56,11 @@ public class AddressServiceImpl implements AddressService {
 
 	@Override
 	public List<AddressResponse> getAddressesByCustomer(Long customerId) {
-		return addressRepository.findByCustomerId(customerId).stream().map(address->
-		modelMapper.map(address,AddressResponse.class)).toList();
+		if(customerClient.getCustomerById(customerId)!=null) {
+			return addressRepository.findByCustomerId(customerId).stream().map(address->
+			modelMapper.map(address,AddressResponse.class)).toList();
+		}
+		throw new CustomerNotFoundException("customer Not found");
 	}
 
 	@Override
