@@ -16,6 +16,7 @@ import com.order.dto.ProductResponse;
 import com.order.entity.Order;
 import com.order.entity.OrderItem;
 import com.order.exception.CustomerNotFoundException;
+import com.order.exception.InventoryUnavailableException;
 import com.order.exception.ProductNotFoundException;
 import com.order.feign.CustomerClient;
 import com.order.feign.InventoryClient;
@@ -58,7 +59,7 @@ public class OrderServiceImpl implements OrderService {
 			ProductResponse product=fetchProductDetails(item.getProductId());
 			AvailabilityResponse response=checkInventory(item.getProductId(),item.getQuantity(),item.getVendorId());
 			if(!response.isAvailable()) {
-				throw new RuntimeException("quantity not available");
+				throw new InventoryUnavailableException("Product with ID " + item.getProductId() + " is not available in the desired quantity");
 			}
 			double price=response.getPrice();
 			return createOrderItem(product,item.getQuantity(),item.getVendorId(),price);

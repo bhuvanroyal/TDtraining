@@ -55,4 +55,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
 		errorResponse.setStatusCode("NOT_FOUND");
 		return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
 	}
+	
+	@ExceptionHandler(InventoryUnavailableException.class)
+	public ResponseEntity<ErrorDetails> handleInventoryUnvailable(InventoryUnavailableException e, WebRequest request) {
+		ErrorDetails errorResponse=new ErrorDetails();
+		errorResponse.setMessage(e.getMessage());
+		errorResponse.setPath(request.getDescription(false));
+		errorResponse.setTimeStamp(LocalDateTime.now());
+		errorResponse.setStatusCode("NOT_FOUND");
+		return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+	}
 }
