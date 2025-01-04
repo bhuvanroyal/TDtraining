@@ -22,6 +22,8 @@ public class OrderItem {
 	
 	private Long productId;
 	
+	private Long vendorId;
+	
 	private Integer quantity;
 	
 	private double price;

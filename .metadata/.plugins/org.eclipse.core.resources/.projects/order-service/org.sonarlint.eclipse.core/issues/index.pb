@@ -1,8 +1,6 @@
 
 Y
 )src/main/java/com/order/entity/Order.java,f\d\fd81df157470d999c6b75d0d009ef546c0b74526
-[
-+src/main/java/com/order/dto/ProductDto.java,0\5\051e39f86f59acc6b1ac5d004092f6f49fd9d5d2
 c
 3src/main/java/com/order/config/WebClientConfig.java,6\3\631b9fc191c54f39b0dd6f9d01dafd870630f9ad
 d
@@ -17,8 +15,6 @@ a
 -src/main/java/com/order/entity/OrderItem.java,2\b\2bacc98349f6bc96b3991ea051d6c8509da108a4
 ]
 -src/main/java/com/order/dto/OrderRequest.java,5\7\5711aa06e870f81660cd603cdaa5ddd3d29ae382
-]
--src/main/java/com/order/dto/OrderItemDto.java,9\f\9f9ef10684a2b12d7c7266969298aabae7b43590
 j
 :src/main/java/com/order/service/impl/OrderServiceImpl.java,6\b\6b729f669ffe64c26583bba8790d2db3acab67b4
 m
@@ -31,3 +27,15 @@ g
 7src/main/java/com/order/repository/OrderRepository.java,1\9\1938edd72c0cd78e901434b567527502caa0cd45
 Y
 )src/main/resources/application.properties,0\6\06f65155ec73600b9fc5c4dc2883d4bb84d8e284
+b
+2src/main/java/com/order/dto/OrderItemResponse.java,d\d\dd19506fd57191c9df01eacd00fc44c7857c7994
+a
+1src/main/java/com/order/dto/OrderItemRequest.java,f\1\f16062ec16c2cb8bef18ee17bf947c9eb25a5a4d
+e
+5src/main/java/com/order/dto/AvailabilityResponse.java,2\9\29ff70ce961ac10c868985d053a59a4f16c3fa9e
+`
+0src/main/java/com/order/dto/ProductResponse.java,e\2\e2267c7a005b14d61c4ec1cb4310b513d182d7c1
+b
+2src/main/java/com/order/feign/InventoryClient.java,1\1\112bf9264a4a032760241b82295f00ad18bb73b7
+`
+0src/main/java/com/order/feign/ProductClient.java,d\8\d842dd4a54c9d069048459c2fbbc2bbd91fd3dfe

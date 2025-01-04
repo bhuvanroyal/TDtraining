@@ -17,11 +17,22 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(AddressNotFoundException.class)
-	public ResponseEntity<ErrorDetails> AddressNotFoundExceptionHandling(Exception e, WebRequest request) {
+	public ResponseEntity<ErrorDetails> handleAddresNotFound(AddressNotFoundException e, WebRequest request) {
+		ErrorDetails errorResponse=new ErrorDetails();
+		errorResponse.setMessage(e.getMessage());
+		errorResponse.setPath(request.getDescription(false));
+		errorResponse.setTimeStamp(LocalDateTime.now());
+		errorResponse.setStatusCode("NOT_FOUND");
+		return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(CustomerNotFoundException.class)
+	public ResponseEntity<ErrorDetails> handleCustomerNotFound(CustomerNotFoundException e, WebRequest request) {
 		ErrorDetails errorResponse=new ErrorDetails();
 		errorResponse.setMessage(e.getMessage());
 		errorResponse.setPath(request.getDescription(false));

@@ -14,6 +14,8 @@ import com.address.exception.CustomerNotFoundException;
 import com.address.feign.CustomerClient;
 import com.address.repository.AddressRepository;
 import com.address.service.AddressService;
+
+import feign.FeignException;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -56,11 +58,14 @@ public class AddressServiceImpl implements AddressService {
 
 	@Override
 	public List<AddressResponse> getAddressesByCustomer(Long customerId) {
-		if(customerClient.getCustomerById(customerId)!=null) {
+		try {
+			customerClient.getCustomerById(customerId);
 			return addressRepository.findByCustomerId(customerId).stream().map(address->
 			modelMapper.map(address,AddressResponse.class)).toList();
 		}
-		throw new CustomerNotFoundException("customer Not found");
+		catch(FeignException.NotFound ex) {
+			throw new CustomerNotFoundException("customer with Id " +customerId +" Not found");
+		}
 	}
 
 	@Override

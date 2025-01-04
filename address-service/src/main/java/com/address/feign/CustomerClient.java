@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.address.dto.CustomerResponse;
 
 
-@FeignClient(url="localhost:8081/api/customer", value="customer-service")
+@FeignClient(name="CUSTOMER-SERVICE")
 public interface CustomerClient {
 
-	@GetMapping("/{customerId}")
+	@GetMapping("/api/customer/{customerId}")
 	CustomerResponse getCustomerById(@PathVariable Long customerId);
 }

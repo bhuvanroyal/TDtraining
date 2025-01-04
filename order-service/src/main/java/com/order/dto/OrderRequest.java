@@ -18,6 +18,6 @@ public class OrderRequest {
 	@NotNull (message="customerId cannot be null")
 	private Long customerId;
 	@NotNull (message="orderItms cannot be null")
-	private List<OrderItemDto> items;
+	private List<OrderItemRequest> items;
 
 }

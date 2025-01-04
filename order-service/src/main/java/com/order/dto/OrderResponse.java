@@ -29,5 +29,5 @@ public class OrderResponse {
 	
 	private Long customerId;
 	
-	private List<OrderItem> orderItems;
+	private List<OrderItemResponse> orderItems;
 }
