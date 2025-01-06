@@ -36,6 +36,8 @@ public class Order {
 	
 	private Long customerId;
 	
+	private Long addressId;
+	
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name = "order_id")
 	private List<OrderItem> orderItems;

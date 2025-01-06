@@ -19,5 +19,7 @@ public class OrderRequest {
 	private Long customerId;
 	@NotNull (message="orderItms cannot be null")
 	private List<OrderItemRequest> items;
+	@NotNull (message="addressId cannot be null")
+	private Long addressId;
 
 }

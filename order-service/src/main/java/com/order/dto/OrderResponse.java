@@ -3,8 +3,8 @@ package com.order.dto;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.order.entity.OrderItem;
-
+//import com.order.entity.OrderItem;
+import com.lib.dto.OrderItemResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,6 +28,8 @@ public class OrderResponse {
 	private String status;
 	
 	private Long customerId;
+	
+	private Long addressId;
 	
 	private List<OrderItemResponse> orderItems;
 }

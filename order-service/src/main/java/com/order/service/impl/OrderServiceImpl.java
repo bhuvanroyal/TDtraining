@@ -5,10 +5,13 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
+import org.apache.kafka.clients.admin.NewTopic;
 import org.modelmapper.ModelMapper;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.lib.dto.OrderEvent;
 import com.order.dto.AvailabilityResponse;
 import com.order.dto.OrderRequest;
 import com.order.dto.OrderResponse;
@@ -18,6 +21,7 @@ import com.order.entity.OrderItem;
 import com.order.exception.CustomerNotFoundException;
 import com.order.exception.InventoryUnavailableException;
 import com.order.exception.ProductNotFoundException;
+import com.order.feign.AddressClient;
 import com.order.feign.CustomerClient;
 import com.order.feign.InventoryClient;
 import com.order.feign.ProductClient;
@@ -32,8 +36,6 @@ public class OrderServiceImpl implements OrderService {
 	
 	private ModelMapper modelMapper;
 	
-//	private WebClient webClient;
-	
 	private ProductClient productClient;
 	
 	private OrderRepository orderRepository;
@@ -41,6 +43,10 @@ public class OrderServiceImpl implements OrderService {
 	private InventoryClient inventoryClient;
 	
 	private CustomerClient customerClient;
+		
+	private NewTopic topic;
+	
+	private KafkaTemplate<String,OrderEvent> kafkaTemplate;
 
 	@Override
 	public OrderResponse placeOrder(OrderRequest orderRequest) {
@@ -69,9 +75,26 @@ public class OrderServiceImpl implements OrderService {
 		double totalAmount=orderItems.stream().mapToDouble(OrderItem::getTotal).sum();
 		order.setTotalAmount(totalAmount);
 		order.setOrderItems(orderItems);
+		order.setAddressId(orderRequest.getAddressId());
+		
+		
 		orderRepository.save(order);
 		
-		return modelMapper.map(order, OrderResponse.class);
+		OrderResponse orderResponse=modelMapper.map(order, OrderResponse.class);
+		
+		OrderEvent event=new OrderEvent();
+		event.setEventType("OrderPlaced");
+		event.setCustomerId(orderRequest.getCustomerId());
+		event.setEmail(customerClient.getCustomerById(orderRequest.getCustomerId()).getEmail());
+		event.setOrderId(order.getOrderId());
+		event.setItems(orderResponse.getOrderItems());
+		event.setTotalAmount(totalAmount);
+		event.setStatus(order.getStatus());
+		
+		kafkaTemplate.send(topic.name(),event);
+		
+		
+		return orderResponse;
 	}
 
 

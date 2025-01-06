@@ -53,8 +53,5 @@ public class OrderController {
 		return new ResponseEntity<>(orderService.getOrdersByCustomerIdAndDateRange(customerId, startDate, endDate),HttpStatus.OK);
 	}
 
-	@GetMapping("/test")
-	public String test() {
-		return "hello from order-service test";
-	}
+	
 }

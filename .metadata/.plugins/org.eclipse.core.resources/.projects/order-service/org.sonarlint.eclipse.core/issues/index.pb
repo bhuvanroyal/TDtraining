@@ -1,8 +1,6 @@
 
 Y
 )src/main/java/com/order/entity/Order.java,f\d\fd81df157470d999c6b75d0d009ef546c0b74526
-c
-3src/main/java/com/order/config/WebClientConfig.java,6\3\631b9fc191c54f39b0dd6f9d01dafd870630f9ad
 d
 4src/main/java/com/order/OrderServiceApplication.java,5\9\591105dd88eb3569244703c194b1f5b9312d954f
 g
@@ -39,3 +37,11 @@ b
 2src/main/java/com/order/feign/InventoryClient.java,1\1\112bf9264a4a032760241b82295f00ad18bb73b7
 `
 0src/main/java/com/order/feign/ProductClient.java,d\8\d842dd4a54c9d069048459c2fbbc2bbd91fd3dfe
+d
+4src/main/java/com/order/config/KafkaTopicConfig.java,5\9\592e116f4a904ec6b3c58614da47299d2eec4b99
+`
+0src/main/java/com/order/dto/AddressResponse.java,5\8\5869a07136182c0434db0d84f32797e45d489685
+a
+1src/main/java/com/order/feign/CustomerClient.java,0\a\0aecabdaf009bef483382b39a869e5962eef5715
+`
+0src/main/java/com/order/feign/AddressClient.java,1\c\1cb23dfd0f924090fb0db8484be6e7900eaab783

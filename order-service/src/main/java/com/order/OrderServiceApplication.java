@@ -1,10 +1,12 @@
 package com.order;
 
+import org.apache.kafka.clients.admin.NewTopic;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
+import org.springframework.kafka.config.TopicBuilder;
 
 @SpringBootApplication
 @EnableFeignClients
@@ -18,5 +20,7 @@ public class OrderServiceApplication {
 	public ModelMapper modelMapper() {
 		return new ModelMapper();
 	}
+	
+	
 
 }

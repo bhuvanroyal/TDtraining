@@ -46,7 +46,7 @@ public class AddressController {
 	}
 	
 	@GetMapping("/{addressId}")
-	public ResponseEntity<AddressResponse> getAddressById(@PathVariable Long addressId) throws AddressNotFoundException{
+	public ResponseEntity<AddressResponse> getAddressById(@PathVariable Long addressId){
 		return new ResponseEntity<>(addressService.getAddressById(addressId),HttpStatus.OK);
 	}
 	
