@@ -1,11 +1,15 @@
 package com.notification.service;
 
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.lib.dto.OrderEvent;
+import com.notification.dto.NotificationResponse;
 import com.notification.entity.Notification;
 import com.notification.repository.NotificationRepository;
 
@@ -17,7 +21,15 @@ public class NotificationService {
 	
 	private final JavaMailSender mailSender;
 	
+	private ModelMapper modelMapper;
+	
 	private NotificationRepository notificationRepository;
+	
+	public List<NotificationResponse> getAllNotificationsByCustomer(Long customerId){
+		return notificationRepository.findByCustomerId(customerId).stream()
+	            .map(notification -> modelMapper.map(notification, NotificationResponse.class))
+	            .toList();
+	}
 	
 	
 	@KafkaListener(topics="${spring.kafka.topic.name}",groupId="${spring.kafka.consumer.group-id}")

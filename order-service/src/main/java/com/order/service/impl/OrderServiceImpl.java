@@ -20,6 +20,7 @@ import com.order.entity.Order;
 import com.order.entity.OrderItem;
 import com.order.exception.CustomerNotFoundException;
 import com.order.exception.InventoryUnavailableException;
+import com.order.exception.OrderNotFoundException;
 import com.order.exception.ProductNotFoundException;
 import com.order.feign.AddressClient;
 import com.order.feign.CustomerClient;
@@ -76,7 +77,7 @@ public class OrderServiceImpl implements OrderService {
 		order.setTotalAmount(totalAmount);
 		order.setOrderItems(orderItems);
 		order.setAddressId(orderRequest.getAddressId());
-		
+		order.setPaymentStatus("Pending");
 		
 		orderRepository.save(order);
 		
@@ -141,6 +142,33 @@ public class OrderServiceImpl implements OrderService {
 			LocalDate endDate) {
 		return orderRepository.findByCustomerIdAndOrderDateBetween(customerId,startDate.atStartOfDay(),
 				endDate.atTime(LocalTime.MAX)).stream().map(ord->modelMapper.map(ord,OrderResponse.class)).toList();
+	}
+	
+	public OrderResponse getOrderByOrderId(Long orderId) {
+		Order order=orderRepository.findById(orderId).orElseThrow(()->new OrderNotFoundException("order with " +orderId +" not found"));
+		return modelMapper.map(order, OrderResponse.class);
+	}
+	
+	public OrderResponse updateOrderStatus(Long orderId, String status) {
+		
+		Order order=modelMapper.map(getOrderByOrderId(orderId), Order.class);
+		order.setStatus(status);
+		orderRepository.save(order);
+//		if(status.equals("Shipped")) {
+//			OrderEvent event=new OrderEvent();
+//			event.setEventType("OrderShipped");
+//			event.setCustomerId();
+//			event.setOrderId(orderId);
+//			
+//		}
+		return modelMapper.map(order, OrderResponse.class);	
+		
+	}
+	public OrderResponse updateOrderPaymentStatus(Long orderId, String paymentStatus) {
+		Order order=modelMapper.map(getOrderByOrderId(orderId), Order.class);
+		order.setPaymentStatus(paymentStatus);
+		orderRepository.save(order);
+		return modelMapper.map(order, OrderResponse.class);	
 	}
 
 }

@@ -45,3 +45,5 @@ a
 1src/main/java/com/order/feign/CustomerClient.java,0\a\0aecabdaf009bef483382b39a869e5962eef5715
 `
 0src/main/java/com/order/feign/AddressClient.java,1\c\1cb23dfd0f924090fb0db8484be6e7900eaab783
+m
+=src/main/java/com/order/exception/OrderNotFoundException.java,0\9\09b002792810db934cfeca0b8076833c4eca9679

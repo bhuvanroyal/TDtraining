@@ -38,6 +38,8 @@ public class Order {
 	
 	private Long addressId;
 	
+	private String paymentStatus;
+	
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name = "order_id")
 	private List<OrderItem> orderItems;

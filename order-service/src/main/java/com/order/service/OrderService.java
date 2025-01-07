@@ -17,5 +17,9 @@ public interface OrderService {
 	public List<OrderResponse> getOrdersBetweenDates(LocalDate startDate, LocalDate endDate);
 	
 	public List<OrderResponse> getOrdersByCustomerIdAndDateRange(Long customerId,LocalDate startDate, LocalDate endDate);
+	
+	public OrderResponse updateOrderStatus(Long orderId, String status);
+	
+	public OrderResponse updateOrderPaymentStatus(Long orderId, String paymentStatus);
 
 }

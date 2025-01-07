@@ -65,4 +65,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
 		errorResponse.setStatusCode("NOT_FOUND");
 		return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
 	}
+	
+	@ExceptionHandler(OrderNotFoundException.class)
+	public ResponseEntity<ErrorDetails> handleOrderNotfound(OrderNotFoundException e, WebRequest request) {
+		ErrorDetails errorResponse=new ErrorDetails();
+		errorResponse.setMessage(e.getMessage());
+		errorResponse.setPath(request.getDescription(false));
+		errorResponse.setTimeStamp(LocalDateTime.now());
+		errorResponse.setStatusCode("NOT_FOUND");
+		return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+	}
 }

@@ -34,6 +34,6 @@ public class Customer {
 
 	private String phoneNumber;
 
-	private LocalDate registeredDate;
+	private LocalDate registeredDate=LocalDate.now();
 	
 }

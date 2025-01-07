@@ -33,6 +33,4 @@ public class CustomerRequest {
     @Pattern(regexp = "^\\d{10}$", message = "Phone number must be 10 digits")
 	private String phoneNumber;
 
-    @NotNull(message = "Registered date is mandatory")
-	private LocalDate registeredDate;
 }

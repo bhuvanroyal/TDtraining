@@ -35,7 +35,7 @@ public class AddressServiceImpl implements AddressService {
 		address.setAddressLine(addressRequest.getAddressLine());
 		address.setCity(addressRequest.getCity());
 		address.setPhoneNumber(addressRequest.getPhoneNumber());
-		address.setPostalCode(addressRequest.getPhoneNumber());
+		address.setPostalCode(addressRequest.getPostalCode());
 		address.setState(addressRequest.getState());
 		address.setCustomerId(customerId);
 		return modelMapper.map(addressRepository.save(address), AddressResponse.class);
@@ -50,7 +50,7 @@ public class AddressServiceImpl implements AddressService {
 			address.setAddressLine(addressRequest.getAddressLine());
 			address.setCity(addressRequest.getCity());
 			address.setPhoneNumber(addressRequest.getPhoneNumber());
-			address.setPostalCode(addressRequest.getPhoneNumber());
+			address.setPostalCode(addressRequest.getPostalCode());
 			address.setState(addressRequest.getState());
 			return modelMapper.map(addressRepository.save(address), AddressResponse.class);
 		

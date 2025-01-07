@@ -31,5 +31,7 @@ public class OrderResponse {
 	
 	private Long addressId;
 	
+	private String paymentStatus;
+	
 	private List<OrderItemResponse> orderItems;
 }

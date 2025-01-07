@@ -1,9 +1,9 @@
 
-n	java:S125'"<This block of commented-out lines of code should be removed.(äÕÌ÷8»È­ëÂ2HÑRMAJORZ
+t	java:S125"<This block of commented-out lines of code should be removed.(ĞüÁ­ûÿÿÿÿ8Íğ÷Ã2H½RMAJORZ
 CODE_SMELL
 
-java:S1128"WRemove this unused import 'org.springframework.web.reactive.function.client.WebClient'.(¬à•ıÿÿÿÿ8’ß²µÃ2HÒRMINORZ
+java:S1128"WRemove this unused import 'org.springframework.web.reactive.function.client.WebClient'.(¬à•ıÿÿÿÿ8´ĞÖçÃ2HÃRMINORZ
 CODE_SMELL
 m
-java:S1128":Remove this unused import 'com.order.feign.AddressClient'.(Ã¹Â³8ÕÀëÌÃ2HÔRMINORZ
+java:S1128":Remove this unused import 'com.order.feign.AddressClient'.(Ã¹Â³8´ĞÖçÃ2HÅRMINORZ
 CODE_SMELL
