@@ -22,4 +22,6 @@ public interface OrderService {
 	
 	public OrderResponse updateOrderPaymentStatus(Long orderId, String paymentStatus);
 
+	public OrderResponse getOrdersById(Long orderId);
+
 }

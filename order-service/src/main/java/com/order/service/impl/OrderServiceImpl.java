@@ -171,4 +171,11 @@ public class OrderServiceImpl implements OrderService {
 		return modelMapper.map(order, OrderResponse.class);	
 	}
 
+
+	@Override
+	public OrderResponse getOrdersById(Long orderId) {
+	return modelMapper.map(orderRepository.findById(orderId).get(), OrderResponse.class);
+	
+	}
+
 }

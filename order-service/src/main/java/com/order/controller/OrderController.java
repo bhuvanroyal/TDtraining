@@ -64,4 +64,9 @@ public class OrderController {
 		return new  ResponseEntity<>(orderService.updateOrderPaymentStatus(orderId, paymentStatus),HttpStatus.OK);
 	}
 	
+	@GetMapping("/ord/{orderId}")
+	public OrderResponse getOrderById(@PathVariable Long orderId) {
+		return orderService.getOrdersById(orderId);
+	}
+	
 }
